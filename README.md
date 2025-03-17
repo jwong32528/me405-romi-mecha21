@@ -26,7 +26,7 @@
 
 
 ## Introduction
-The Romi Time-Trial project focuses on optimizing autonomous robot navigation using sensors and control algorithms. The primary objectives include:
+The Romi Time-Trial project focuses on completing the game track using controls using various sensors as feedback. The primary objectives include:
 - Developing a robust **line-following algorithm**.
 - Ensuring **fast and consistent** lap times.
 - Overcoming hardware and software challenges encountered during development.
