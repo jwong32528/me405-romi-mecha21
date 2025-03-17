@@ -52,12 +52,12 @@ For the mechanical components of our Romi, we used a line sensor, two bump senso
 *Wiring Diagram*
 
 ### **Design:**
-- Sensor placement optimization for **improved track detection**.
-  - IR Sensor placed on the front of Romi to process feedback in time to make adjustments.
-  - IR Sensor placed as closed to the ground as possible for higher quality feedback.
-  - Bump Sensors placed on the front-most part of Romi to ensure the sensor is triggered when bumping into walls.
-  - IMU placed under the Romi Chassis to avoid clutter.
-- Custom **mounting brackets** for sensor stability.
+- Sensor placement optimization for **improved track detection**
+  - IR Sensor placed on the front of Romi to process feedback quickly
+  - IR Sensor placed as close to the ground as possible to reduce errors
+  - Bump Sensors placed on the front-most part of Romi to ensure the sensor is triggered when bumping into walls
+  - IMU placed under the Romi Chassis to avoid clutter
+- Custom **mounting brackets** for sensor stability
   - Standoffs
 
 
