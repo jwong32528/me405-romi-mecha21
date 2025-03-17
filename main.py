@@ -171,9 +171,6 @@ def main():
     #task3 = cotask.Task(task_adjust_speed, name="Adjust Speed", priority=1, period=10, shares=(controls, left_effort_share, right_effort_share))
 
     ### Add tasks to scheduler
-    #cotask.task_list.append(task_left)
-    #cotask.task_list.append(task_right)
-    #cotask.task_list.append(task3)
     cotask.task_list.append(task_enco)
     cotask.task_list.append(task_head)
     cotask.task_list.append(task_line)
@@ -186,18 +183,8 @@ def main():
     while True:
         
         
-        # Bumpsensor Stops Romi
-        #bump_index = bump.bump_detected()
-        #if bump_index != -1:
-        #    print(f"Bump Detected on sensor {bump_index + 1}! Stopping Romi!")
-            
-        #    right_motor.disable()
-        #    left_motor.disable()
-        
-        
         cotask.task_list.pri_sched()
         
-    #print("Romi has stopped due to a bump sensor trigger.")
     
 if __name__ == "__main__":
     main()

@@ -36,7 +36,7 @@ def task_encoder(shares):
         print(f"Encoder RV: {RV}")
         
         
-        # ✅ Store dt values from encoders into shared variables
+        # Store dt values from encoders into shared variables
         #before = left_dt_share.get()
         #print(f"encoder task dt before: {before}")
         
@@ -54,14 +54,14 @@ def task_encoder(shares):
     
         
         ## !!! THERE IS A BUG WHERE ROMI STAYS IN STATE 4 IF THIS IF STATEMENT IS ACTIVATED BEFORE ROMI HITS THE 90 DEGREE ANGLE
-        ## ✅ Check if left encoder has reached 6 full rotations (Disable Mode)
+        ## Check if left encoder has reached 6 full rotations (Disable Mode)
         #if not mode_activated and abs(left_encoder.position) >= diamond_position_off:
-        #    mode_share.put(1)  # ✅ Turn off STRAIGHT MODE
-        #    print("🔄 Mode returned to LINE FOLLOW MODE (0) after 6 rotations")
-        #    mode_activated = True  # ✅ Reset activation flag
+        #    mode_share.put(1)  # Turn off STRAIGHT MODE
+        #    print("Mode returned to LINE FOLLOW MODE (0) after 6 rotations")
+        #    mode_activated = True  # Reset activation flag
         #    
         #if mode_activated == True:
-        #    print("🔄 Mode returned to LINE FOLLOW MODE (0) after 6 rotations")
+        #    print("Mode returned to LINE FOLLOW MODE (0) after 6 rotations")
         
         
         

@@ -18,7 +18,7 @@ def task_imu(shares):
         print("[ERROR] IMU not responding!")
         return
     
-    datum_heading = euler_angles[0]  # ✅ Store initial heading
+    datum_heading = euler_angles[0]  # Store initial heading
     datum_share.put(datum_heading)
     
     print(f"[DEBUG] Initial Datum Heading: {datum_heading:.2f}°")
@@ -33,7 +33,7 @@ def task_imu(shares):
             yield
             continue
 
-        current_heading = euler_angles[0]  # ✅ Continuously updating
+        current_heading = euler_angles[0]  # Continuously updating
         heading_share.put(current_heading)
 
         # Compute relative heading change
@@ -45,7 +45,7 @@ def task_imu(shares):
         
         ## Detect 90-degree turn
         #if not diamond_check and abs(heading_change) >= 93:
-        #    mode_share.put(1)  # ✅ Change mode to 1 after turning 90°
+        #    mode_share.put(1)  # Change mode to 1 after turning 90°
         #    diamond_check = True
         #    print("[DEBUG] 90-degree turn detected! Mode changed to 1")
 

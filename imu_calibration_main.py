@@ -19,11 +19,11 @@ def main():
     imu.set_mode(0x0C)  # NDOF mode
     time.sleep(0.1)
 
-    print("\n🚀 IMU Calibration Started. Follow these steps to calibrate:\n")
-    print("1️⃣ Rotate the IMU **slowly in all directions** to calibrate the Gyro.")
-    print("2️⃣ Hold the IMU **still in multiple positions** to calibrate the Accelerometer.")
-    print("3️⃣ Move the IMU in a **figure-eight motion** to calibrate the Magnetometer.")
-    print("🔄 Keep moving until all values reach 3.\n")
+    print("\nIMU Calibration Started. Follow these steps to calibrate:\n")
+    print("1️ Rotate the IMU **slowly in all directions** to calibrate the Gyro.")
+    print("2️ Hold the IMU **still in multiple positions** to calibrate the Accelerometer.")
+    print("3 Move the IMU in a **figure-eight motion** to calibrate the Magnetometer.")
+    print(" Keep moving until all values reach 3.\n")
 
     while True:
         # Get calibration status
@@ -32,15 +32,15 @@ def main():
 
         # If fully calibrated, save data and exit
         if all(value == 3 for value in status.values()):
-            print("\n✅ IMU Fully Calibrated! Saving calibration data...\n")
+            print("\n IMU Fully Calibrated! Saving calibration data...\n")
 
             # Save calibration data
             calibration_data = imu.get_calibration_data()
             with open("imu_calibration.dat", "wb") as f:
                 f.write(calibration_data)
 
-            print("💾 Calibration data saved as 'imu_calibration.dat'.")
-            print("🎯 You can now run your main program!")
+            print("Calibration data saved as 'imu_calibration.dat'.")
+            print("You can now run your main program!")
             break
 
         time.sleep(1)  # Wait before checking again

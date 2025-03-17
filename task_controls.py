@@ -11,9 +11,7 @@ import bump
 
 
 def task_controls(shares):
-    
-    # !!! We need a to add a queue(s) where we can input manually measured 
-    # !!! angles/distances that S1 and S2 can use
+  
     
     
     #print(f"DEBUG: shares received in task_controls: {shares}")  # Debug print
@@ -22,11 +20,11 @@ def task_controls(shares):
     #that are listed above. A share is used to determine which state/mode romi 
     #is in.
 
-    #Line sensor will send shares based on the senso readings?
+    #Line sensor will send shares based on the senso readings
     #Then the controls task can utilize the line sensor centroid and the IMU euler
     #data to switch between. Basically the controls task IS the supervisor.
     
-    #controls, left_effort_share, right_effort_share = shares  # no mode_share
+    
     controls, left_effort_share, right_effort_share, left_dt_share, right_dt_share, left_position_share, right_position_share, left_velocity_share, right_velocity_share, heading_share, datum_share, mode_share = shares  # Get Controls object
     
     S0_LINE_FOLLOW_MODE     = 0
@@ -81,7 +79,7 @@ def task_controls(shares):
     initial_position = None  # Track where Romi started moving
 
     
-    #mode_share.put(2) #Initial FSM Mode (Debugging)
+   
     
     while True:
         try:
@@ -153,8 +151,8 @@ def task_controls(shares):
                 if current_displacement_target is not None:
                     
                     
-                    #!!! Added this to detect bumps
-                    # ✅ Check if bump sensor was triggered **before** displacement check
+                    
+                    # Check if bump sensor was triggered **before** displacement check
                     bump_index = bump.bump_detected()
                     if bump_index != -1:
                         print(f"[ALERT] Bump detected on sensor {bump_index + 1}! Stopping early.")
@@ -192,33 +190,24 @@ def task_controls(shares):
             
             elif (state == S3_WALL_BUMP_MODE):
                 
-                # !!! Option 1: Need a task for bump sensor with hard coded values
-                # !!! Option 2: Need check for bumpsensor to change mode_share 
-                #    to pivot/straight mode and use the queue to the finish line
-                # !!! Need to change mode_share when bump sensor is pressed
-                # This mode will reverse romi slightly to not interfere with 
-                #  the wall
-                # Encoder tracks distance traveled
-                
+                # UNUSED CODE
                 controls.closed_loop_right(right_effort_share)
                 yield
                 
             
             
             elif (state == S4_DIAMOND_MODE):
-                # !!! This mode might be unneccessary, if tuned better, we can use the linesensor
+                
                 # Goes straight until encoder task changes back to state 0
                 controls.basic_go_straight(left_effort_share, right_effort_share)
                 yield
             
             
             elif (state == S5_FINISH_LINE_MODE):
-                # !!! Replace with an idle task
-                # !!! Enter this mode when the queue is empty?
-                #controls.closed_loop_left(left_effort_share)
+                
                 
                 controls.idle()
-                #controls.closed_loop_right(right_effort_share)
+                
                 yield
                 # Romi idles
                 

@@ -51,7 +51,7 @@ class Controls:
         self.sensor = sensor 
         self.centroid_share = centroid_share
         
-        # ✅ Store motor efforts
+        # Store motor efforts
         self.left_effort = 0
         self.right_effort = 0
         
@@ -61,7 +61,7 @@ class Controls:
         #centroid = sensor.get_centroid()  # Get centroid value
         centroid = self.centroid_share.get()
 
-        # ✅ Normalize centroid from [-4, 4] to [-1, 1]
+        # Normalize centroid from [-4, 4] to [-1, 1]
         #max_centroid = 4
         error = centroid - 4.5 #/ max_centroid  
         
@@ -90,12 +90,9 @@ class Controls:
         # speed is moving afterwards, it can use those updates effort values 
         # to add adjustments to.
         
-        # ✅ Read shared effort values
-    
-        #left_base_effort = self.base_effort #float(left_effort_share.get()) #20
-        #right_base_effort = self.base_effort #float(right_effort_share.get()) #20
         
-        #print(f"Base Efforts: Left={left_base_effort}, Right={right_base_effort}")
+    
+    
         print(f"Correction: {output}")
         
         
@@ -124,38 +121,25 @@ class Controls:
             self.right_motor.set_effort(self.right_base_effort)
         
         
-        #left_motor.set_effort(left_base_effort)
-        #right_motor.set_effort(right_base_effort)
-            
-        #If the centroid is between 0.05 and -0.05, the left and right closed
-        # loop will take over because if all three are running at the same 
-        # period, adjust speed is added to the scheduler last and overrides
-        # the effort value (pseudo higher priority)
         
-        #left_motor.set_effort(output if centroid > 0.03 else -output)
-        #right_motor.set_effort(-output if centroid > 0.03 else output)
 
         self.prev_error = error
-        #self.prev_time = current_time
+        
     
     
 
-    # !!! Col said kd is what is causing the choppyness, consider not using
+  
     def closed_loop_left(self, left_effort_share, left_velocity_share, left_dt_share, left_position_share):
         """Keeps the left motor running at a constant speed while allowing adjustments."""
-    #!!! Add Jason's changes HOWEVER
-    #!!! USE THE SHARES I MADE THAT THE ENCODER TASK UPDATES INSTEAD OF RECREATING dt!
-    #!!! We can also make a PID class that closed_loop, adjust_speed, adjust_heading references
+   
     
-        #current_time = time.time()           # Gets current Time
-        #dt = current_time - self.prev_time   # Gets change in time
-        dt = left_dt_share.get()#self.left_encoder.dt
-        #self.left_encoder.update()                # Turn new encoder reading to current
+       
+        dt = left_dt_share.get()           #self.left_encoder.dt
         V_meas = left_velocity_share.get() #self.left_encoder.get_velocity() # Gets the velocity of the encoder
         
         print(f"Reference Velocity: {self.V_ref_l}")
         print(f"L: {V_meas}")
-        error = self.V_ref_l - V_meas          # Subtracts from the 
+        error = self.V_ref_l - V_meas          
         print(f"err: {error}")
 
         print(f"dt: {dt}")  # Check dt values
@@ -165,7 +149,7 @@ class Controls:
         I = self.Ki_2 * self.integral
         D = self.Kd_2 * ((error - self.prev_error) / dt if dt > 0 else 0)
 
-        # ✅ Debug Print: Check error changes, dt, and D calculation
+        # Debug Print: Check error changes, dt, and D calculation
         print(f"Dt: {dt}, Err: {error}, Prev Err: {self.prev_error}, Err Diff: {error - self.prev_error}, D: {D}")
 
         PID = P + I + D        
@@ -179,21 +163,16 @@ class Controls:
             print("Warning: Left motor is spinning too fast! Limiting effort.")
 
         #left_motor.set_effort(self.left_effort)  
-        left_effort_share.put(float(self.left_effort))  # ✅ Store effort in shared variable
+        left_effort_share.put(float(self.left_effort))  # Store effort in shared variable
 
         self.prev_error = error
-        #self.prev_time = current_time
+       
 
 
     def closed_loop_right(self, right_effort_share, right_velocity_share, right_dt_share, right_position_share):
         """Keeps the right motor running at a constant speed while allowing adjustments."""
-    
-    #!!! Add Jason's changes HOWEVER
-    #!!! USE THE SHARES I MADE THAT THE ENCODER TASK UPDATES INSTEAD OF RECREATING dt!
-    #!!! We can also make a PID class that closed_loop, adjust_speed, adjust_heading references
-    
-        #current_time = time.time()
-        #dt = current_time - self.prev_time
+
+
         dt = right_dt_share.get() #self.right_encoder.dt
         self.right_encoder.update()
         V_meas = right_velocity_share.get() #self.right_encoder.get_velocity()
@@ -216,19 +195,14 @@ class Controls:
         if abs(V_meas) > (self.V_ref_r * 1.5):
             print("Warning: Right motor is spinning too fast! Limiting effort.")
 
-        #right_motor.set_effort(self.right_effort)  
-        right_effort_share.put(float(self.right_effort))  # ✅ Store effort in shared variable
+        
+        right_effort_share.put(float(self.right_effort))  # Store effort in shared variable
 
         self.prev_error = error
-        #self.prev_time = current_time
+       
 
     def basic_go_straight(self, left_effort_share, right_effort_share):
-       
-    # !!! WE SHOUD DEFINITLY REPLACE THIS BECASUE ROMI DOES NOT MOVE STRAIGHT    
-    
-        # ✅ Read shared effort values
-        #left_base_effort = 15#float(left_effort_share.get()) #self.base_effort#
-        #right_base_effort = 14.7#float(right_effort_share.get()) #self.base_effort#
+
         
         print("left_base_effort")
         
@@ -237,11 +211,6 @@ class Controls:
         
     def idle(self):
        
-    # !!! WE SHOUD DEFINITLY REPLACE THIS BECASUE ROMI DOES NOT MOVE STRAIGHT    
-    
-        # ✅ Read shared effort values
-        #left_base_effort = 15#float(left_effort_share.get()) #self.base_effort#
-        #right_base_effort = 14.7#float(right_effort_share.get()) #self.base_effort#
         
         print("left_base_effort")
         
@@ -260,7 +229,6 @@ class Controls:
         dt = left_dt_share.get()#self.left_encoder.dt #current_time - self.prev_time
         print(f"adjust speed dt: {dt}")
 
-        #err = centroid  # Centroid is already in range -1 to 1
         P = self.Kp_3 * error
         self.integral += error * dt
         I = self.Ki_3 * self.integral
@@ -278,7 +246,7 @@ class Controls:
             self.right_motor.set_effort(0)
             print("[DEBUG] Target heading reached, stopping motors.")
             
-        # ✅ Handle 180° case to avoid oscillation
+        # Handle 180° case to avoid oscillation
         if abs(error) == 180:
             output = self.pivot_max_effort if desired_heading > current_heading else -self.pivot_max_effort
             print("[DEBUG] 180-degree case detected. Forcing initial turn direction.")
@@ -287,19 +255,6 @@ class Controls:
         self.left_motor.set_effort(output)
         self.right_motor.set_effort(-output)
         
-        """
-        # ✅ Settling time check (only switch states if stable for 5 cycles)
-        if abs(error) < 6:  # Within tolerance
-            self.settling_counter += 1  # Count stable cycles
-            if self.settling_counter >= 5:  # ✅ Prevents instant state change
-                self.left_motor.set_effort(0)
-                self.right_motor.set_effort(0)
-                mode_share.put(2)  # ✅ Change to state 2 after being stable
-                print("[DEBUG] Target heading reached. Changing state!")
-                mode_share.get()
-        else:
-            self.settling_counter = 0  # Reset if Romi is not stable
-        """
         
         self.prev_error = error
   

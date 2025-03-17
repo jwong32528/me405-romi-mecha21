@@ -42,33 +42,7 @@ class LineSensor:
             (305, 2619)
         ]
         
-        '''
-        # we were unable to calibrate in real time
-        # Stored manually collected data as a tuple
-        self.calibration_data = [
-        #    MIN    MAX
-            (304, 2624), 
-            (264, 2246), 
-            (261, 2447), 
-            (256, 2111), 
-            (254, 2217), 
-            (265, 2354), 
-            (256, 2340), 
-            (305, 2619)
-        ]
         
-        #((304, 2624), (264, 2246), (261, 2447), (256, 2111), (254, 2217), (265, 2354), (256, 2340), (305, 2619))
-        
-        
-        #(295, 2524), # Sensor 1
-        #(259, 2533), # Sensor 3
-        #(257, 2414), # Sensor 5
-        #(254, 2265), # Sensor 7
-        #(250, 1729), # Sensor 9
-        #(265, 2430), # Sensor 11
-        #(253, 1956), # Sensor 13
-        #(296, 2523)  # Sensor 15
-        '''
         
         # Define sensor weights for centroid calculation
         self.weights = [1, 2, 3, 4, 5, 6, 7, 8]  # 8 sensor setup with symmetrical weights
@@ -87,7 +61,7 @@ class LineSensor:
         input("Place the sensor array on a white surface and press Enter to continue...")
         white_readings = self.read_sensors()
 
-        # ✅ Ensure min is always the lower value
+        # Ensure min is always the lower value
         self.calibration_data = tuple(
             (min(b, w), max(b, w)) for b, w in zip(black_readings, white_readings)
         )
