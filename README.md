@@ -59,6 +59,10 @@ For the mechanical components of our Romi, we used a line sensor, two bump senso
   - IMU mounted under the chassis to reduce clutter.
 - Custom **mounting brackets** for sensor stability
   - Standoffs
+![alt text](https://github.com/jwong32528/me405-romi-mecha21/blob/pictures/romi_front.jpg)  
+*Romi Front*
+![alt text](https://github.com/jwong32528/me405-romi-mecha21/blob/pictures/romi_bottom.jpg)  
+*Romi Bottom*
 
 
 ## 4. Software and Control Implementation
