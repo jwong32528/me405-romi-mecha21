@@ -44,7 +44,9 @@ For the mechanical components of our Romi, we used a line sensor, two bump senso
 
 ### **Wiring and Assembly:**
 - Components are wired to ensure **minimum signal noise and interference**.
-- **Wiring Diagram:**
+
+![alt text](https://github.com/jwong32528/me405-romi-mecha21/blob/pictures/wiring_diagram.png)  
+*Wiring Diagram*
 
 ### **Design:**
 - Sensor placement optimization for **improved track detection**.
@@ -99,13 +101,12 @@ The robot implements a **PID control controller** to adjust motor speeds based o
 
 ## Challenges
 The most challenging part of the game track was navigating the diamond section. This sharp turns made it difficult for Romi to stay on the line without veering off. To overcome this challenge, we programmed Romi to go straight through the diamond when the Romi detected the diamond.   
-Another challenge was integrating both the PID controllers for line tracing and straight-line movement. Running both controllers simulatenously caused the velocity PID controller to adjust the velocity, even when we needed different velocities for turning. Due to time constraints and the fact that it was not essential, we decided not to incorporate the velocity controller. However, with more time, we would have implemented it specifically for the grid section to prevent the Romi from deviating from its straight path.
+Another challenge was integrating both the PID controllers for line tracing and straight-line movement. Running both controllers simulatenously caused the velocity PID controller to adjust the velocity, even when we needed different velocities for turning. Due to time constraints and the fact that it was not essential, we decided not to incorporate the velocity controller. However, with more time, we would have implemented it specifically for the grid section to prevent the Romi from deviating from its straight path.  
 If we were to redo this project, we would eliminate the use of the line sensor and instead hard-code the Romi’s movement using predefined distances and angles. We found that the line sensor becomes unreliable at higher speeds, and we could achieve the same level of consistency without it.
 
 ## Results
 We were able to successfully complete the game track in 48 seconds during the live demo. 
 
-![Romi Robot Running](https://img.youtube.com/vi/Uyyd9d3AcY4/0.jpg)
 
 **Video:**  
 [![Watch the Video](https://img.youtube.com/vi/Uyyd9d3AcY4/0.jpg)](https://youtu.be/Uyyd9d3AcY4)
