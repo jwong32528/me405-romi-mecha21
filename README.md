@@ -26,7 +26,7 @@
 
 
 ## Introduction
-The Romi Time-Trial project focuses on completing the game track using controls using various sensors as feedback. The primary objectives include:
+The Romi Time-Trial project focuses on completing the game track using various sensors for feedback and controls. The primary objectives include:
 - Developing a robust **line-following algorithm**.
 - Ensuring **fast and consistent** lap times.
 - Overcoming hardware and software challenges encountered during development.
@@ -56,7 +56,7 @@ For the mechanical components of our Romi, we used a line sensor, two bump senso
   - IR Sensor placed on the front of Romi to process feedback quickly
   - IR Sensor placed as close to the ground as possible to reduce errors
   - Bump Sensors placed on the front-most part of Romi to ensure the sensor is triggered when bumping into walls
-  - IMU placed under the Romi Chassis to avoid clutter
+  - IMU mounted under the chassis to reduce clutter.
 - Custom **mounting brackets** for sensor stability
   - Standoffs
 
@@ -89,7 +89,7 @@ We used the task diagram shown above to structure our code and the finite state 
 - **Controls**: Implements a basic PID controller for line tracing using centroid data
 - **Bumpsensor**: Detects a bump
 - **Button handler**: Uses the button on the romi to run the romi
-- **Imu**: Acquires heading data from the magnometer to know the orientation of the Romi
+- **Imu**: Acquires heading data from the magnetometer to know the orientation of the Romi
 
 **Utility**
 - **Cotask**: Manages cooperative multitasking, allowing multiple tasks to run efficiently
@@ -107,7 +107,7 @@ The robot implements a **PID control controller** to adjust motor speeds based o
 
 
 ### **State Machine / Task Flow:**
-- **Line Following:** PID controller that adjusts the left and right wheel effort values based on the line sensor task's centroid value. Romi follows the line indefinitley until it detects a bump, or one of tasks switch the mode.
+- **Line Following:** PID controller that adjusts the left and right wheel effort values based on the line sensor task's centroid value. Romi follows the line indefinitely until it detects a bump or a task switches the mode.
 - **Pivot Mode:** Uses IMU to measure initial heading as reference for rotating Romi based on a fixed angle displacement. 
 - **Straight Mode:** Uses encoder to measure the current position. The desired displacement is then acquired from the queue and added to the current position to obtain a target distance. Romi moves forward until the current encoder distance reaches the target distance.
 - **Finish Line Mode:** Romi idles
@@ -120,12 +120,12 @@ Another challenge was integrating both the PID controllers for line tracing and 
 If we were to redo this project, we would eliminate the use of the line sensor and instead hard-code the Romi’s movement using predefined distances and angles. We found that the line sensor becomes unreliable at higher speeds, and we could achieve the same level of consistency without it.
 
 ## Results
-Only one out of three official attempts was successful.
+Out of three official attempts, only one was successful.  
 We were able to complete the game track in 48 seconds during the live demo. The video below shows the Romi completing the game track using the code in the repository.
 
-Trial 1: DNF - Romi was not initialized properly.
-Trial 2: 48 [s] - 5 [s] = 43 [s]
-Trial 3: DNF - Romi deviated from its straight line path during the grid section due to the lack of a PID controller for velocity.
+Trial 1: DNF - Romi was not properly initialized    
+Trial 2: 48 [s] - 5 [s] = 43 [s]  
+Trial 3: DNF - Romi deviated from its straight line path during the grid section due to the lack of a PID controller for velocity.  
 
 **Video:**  
 [![Watch the Video](https://img.youtube.com/vi/Uyyd9d3AcY4/0.jpg)](https://youtu.be/Uyyd9d3AcY4)
