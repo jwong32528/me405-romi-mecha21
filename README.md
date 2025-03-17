@@ -59,7 +59,7 @@ For the mechanical components of our Romi, we used a line sensor, two bump senso
 
 The main.py file is responsible for initializing and managing the core components of the Romi. It initializes the IMU, encoders, motors, and line sensor, and all the shared variables for communication between tasks, including the controller gains. The program initializes the encoder, IMU, linesensor, and controls tasks, appending the tasks to the scheduler, and running them at a 10 ms interval. 
 
-The controls task implements a finite state machine to change its state from line following, to pivot, straight distance, and finish line mode. The controls task is used to hard code the distance and angle displacement of the Romi so that it is able to complete the track.  For the encoder task, we did not convert the encoder ticks directly to position, so we ended up using the resoltuion of 1440 counts/rev to get the target distance or revolutions. The linesensor task gets the sensor readings and normalizes the data so that white = 0 and black = 1, returning the centroid for line tracing. The IMU task acquires the heading data, which allows us to know the orientation of Romi at all times but with some error.
+The controls task implements a finite state machine to change its state from line following, to pivot, straight distance, and finish line mode. The controls task is used to hard code the distance and angle displacement of the Romi so that it is able to complete the track.  For the encoder task, we did not convert the encoder ticks directly to position, so we ended up using the resolution of 1440 counts/rev to get the target distance or revolutions. The linesensor task gets the sensor readings and normalizes the data so that white = 0 and black = 1, returning the centroid for line tracing. The IMU task acquires the heading data, which allows us to know the orientation of Romi at all times but with some error.
 
 
 
@@ -89,7 +89,7 @@ The robot implements a **PID control controller** to adjust motor speeds based o
 - **Receives data from the line sensor and normalizes the data to output a centroid**
 - **Romi uses the centroid to trace the lines on the game track**
 - **Stable tracking**
-- **Consistent Line Tracing**
+- **Gains were tuned iteratively through trial and error**
 
 ### **State Machine / Task Flow:**
 - **Line Following:** PID controller for tracing the lines.
@@ -100,12 +100,12 @@ The robot implements a **PID control controller** to adjust motor speeds based o
 
 
 ## Challenges
-The most challenging part of the game track was navigating the diamond section. This sharp turns made it difficult for Romi to stay on the line without veering off. To overcome this challenge, we programmed Romi to go straight through the diamond when the Romi detected the diamond.   
-Another challenge was integrating both the PID controllers for line tracing and straight-line movement. Running both controllers simulatenously caused the velocity PID controller to adjust the velocity, even when we needed different velocities for turning. Due to time constraints and the fact that it was not essential, we decided not to incorporate the velocity controller. However, with more time, we would have implemented it specifically for the grid section to prevent the Romi from deviating from its straight path.  
+The most challenging part of the game track was navigating the diamond section. The sharp turns made it difficult for Romi to stay on the line without veering off. To overcome this challenge, we programmed Romi to go straight through the diamond when the Romi detected the diamond.   
+Another challenge was integrating both the PID controllers for line tracing and straight-line movement. Running both controllers simultaneously caused the velocity PID controller to adjust the velocity, even when we needed different velocities for turning. Due to time constraints and the fact that it was not essential, we decided not to incorporate the velocity controller. However, with more time, we would have implemented it specifically for the grid section to prevent the Romi from deviating from its straight path.  
 If we were to redo this project, we would eliminate the use of the line sensor and instead hard-code the Romi’s movement using predefined distances and angles. We found that the line sensor becomes unreliable at higher speeds, and we could achieve the same level of consistency without it.
 
 ## Results
-We were able to successfully complete the game track in 48 seconds during the live demo. 
+We were able to successfully complete the game track in 48 seconds during the live demo. The video below shows the Romi completing the game track using the code in the repository.
 
 
 **Video:**  
