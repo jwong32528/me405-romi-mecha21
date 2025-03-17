@@ -1,6 +1,6 @@
 # ME405 Romi Robot Overview
 
-**Project Name:** Romi Robot
+**Project Name:** Romi Robot  
 **Brief Description:** This project involves assembling, programming, and testing a Romi robot for time-trial challenges. The goal is to navigate the printed game track fast and consistently.  
 **Team Members:** Josh DeWeese and Jason Wong
 
@@ -66,21 +66,21 @@ The controls task implements a finite state machine to change its state from lin
 
 ### **Classes:**
 **Main**
-- motor: Initializes the motors, allowing for easy enabling/disabling, effort adjustments, and direction changes
-- encoder: Initializes the encoders, reads tick counts, and converts them into position and velocity measurements
-- linesensor: Reads and normalizes sensor data, then returns the centroid for line tracing
-- controls: Implements a basic PID controller for line tracing using centroid data
-- bumpsensor: Detects a bump
-- button handler: Uses the button on the romi to run the romi
-- imu: Acquires heading data from the magnometer to know the orientation of the Romi
+- **Motor**: Initializes the motors, allowing for easy enabling/disabling, effort adjustments, and direction changes
+- **Encoder**: Initializes the encoders, reads tick counts, and converts them into position and velocity measurements
+- **Linesensor**: Reads and normalizes sensor data, then returns the centroid for line tracing
+- **Controls**: Implements a basic PID controller for line tracing using centroid data
+- **Bumpsensor**: Detects a bump
+- **Button handler**: Uses the button on the romi to run the romi
+- **Imu**: Acquires heading data from the magnometer to know the orientation of the Romi
 
 **Utility**
-- cotask: Manages cooperative multitasking, allowing multiple tasks to run efficiently
-- taskshare: Facilitates data sharing between tasks, ensuring smooth communication
-- cqueue: Implements a queue structure for task scheduling and data handling
-- linesensor calibration: Calibrates the linesensor for black and white surfaces
-- imu calibration: Calibrates the IMU to correct for sensor drift and improve heading accuracy
-- utils: Used functions to reduce the amount of code in a file
+- **Cotask**: Manages cooperative multitasking, allowing multiple tasks to run efficiently
+- **Taskshare**: Facilitates data sharing between tasks, ensuring smooth communication
+- **Cqueue**: Implements a queue structure for task scheduling and data handling
+- **Linesensor Calibration**: Calibrates the linesensor for black and white surfaces
+- **Imu Calibration**: Calibrates the IMU to correct for sensor drift and improve heading accuracy
+- **Utils**: Used functions to reduce the amount of code in a file
 
 ### **Control System Overview:**
 The robot implements a **PID control controller** to adjust motor speeds based on sensor feedback. 
@@ -90,23 +90,26 @@ The robot implements a **PID control controller** to adjust motor speeds based o
 - **Consistent Line Tracing**
 
 ### **State Machine / Task Flow:**
-- **Idle:** Robot waits for button press
 - **Line Following:** PID controller for tracing the lines.
 - **Pivot Mode:** Uses IMU to measure initial heading as reference for rotating Romi based on a fixed angle displacement.
 - **Straight Mode:** The robot moves forward.
+- **Finish Line Mode:** The robot moves past the wall and into the finish area
 
 
 
 ## Challenges
-The most challenging part of the game track was navigating the diamond section. This sharp turns made it difficult for Romi to stay on the line without veering off. To overcome this challenge, we programmed Romi to go straight through the diamond when the Romi detected the diamond. 
+The most challenging part of the game track was navigating the diamond section. This sharp turns made it difficult for Romi to stay on the line without veering off. To overcome this challenge, we programmed Romi to go straight through the diamond when the Romi detected the diamond.   
 Another challenge was integrating both the PID controllers for line tracing and straight-line movement. Running both controllers simulatenously caused the velocity PID controller to adjust the velocity, even when we needed different velocities for turning. Due to time constraints and the fact that it was not essential, we decided not to incorporate the velocity controller. However, with more time, we would have implemented it specifically for the grid section to prevent the Romi from deviating from its straight path.
 If we were to redo this project, we would eliminate the use of the line sensor and instead hard-code the Romi’s movement using predefined distances and angles. We found that the line sensor becomes unreliable at higher speeds, and we could achieve the same level of consistency without it.
 
 ## Results
 We were able to successfully complete the game track in 48 seconds during the live demo. 
 
-**Video:** 
+![Romi Robot Running](https://img.youtube.com/vi/Uyyd9d3AcY4/0.jpg)
+
+**Video:**  
 [![Watch the Video](https://img.youtube.com/vi/Uyyd9d3AcY4/0.jpg)](https://youtu.be/Uyyd9d3AcY4)
+
 
 
 
